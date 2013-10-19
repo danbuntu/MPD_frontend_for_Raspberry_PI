@@ -6,20 +6,19 @@ body {
     font-size: 8px;
 }
 
-
 .player {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .playlist {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .connected {
     text-align: right;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 #voMuteHolding {

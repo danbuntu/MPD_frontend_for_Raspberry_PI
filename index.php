@@ -26,6 +26,7 @@ $myMpd = new mpd($mpdhost, $mpdport);
 
 
 <div class="row connected">
+    <A HREF="<?php echo $_SERVER[PHP_SELF] ?>">Refresh Page</A>
     <?php
     if ($myMpd->connected == FALSE) {
         echo "Error Connecting: " . $myMpd->errStr;
