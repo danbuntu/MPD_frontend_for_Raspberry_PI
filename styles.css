@@ -1,0 +1,117 @@
+.player {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.playlist {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.connected {
+    text-align: right;
+    margin-right: 20px;
+}
+
+#voMuteHolding {
+    display: none;
+}
+
+.controlsDiv {
+    font-size: 120%;
+    text-align: center;
+}
+
+.state {
+    margin-top: 5px;
+    text-align: center;
+}
+
+#optionsWell {
+    display: none;
+}
+
+#serverWell {
+    display: none;
+}
+
+#playlistWell {
+    display: none;
+}
+
+#searchWell {
+    display: none;
+}
+
+#searchListItemsAdded {
+    display: none;
+}
+
+#playlistMessage {
+    display: none;
+}
+
+#alphabet {
+    display: none;
+}
+
+#alphabetAnchors {
+    display: none;
+}
+
+#advancedsearchWell {
+    display: none;
+}
+
+.btn-letter {
+    margin-right: 5px;
+}
+
+.btn-anchor {
+    margin-right: 2px;
+}
+
+.searchButtonArtist {
+ margin-bottom: 2px;
+}
+
+.searchButtonAlbum {
+    margin-bottom: 2px;
+}
+
+.well {
+    background-color: lightgray;
+}
+
+/*colours
+
+#####  Color Palette by Color Scheme Designer
+#####  Palette URL: http://colorschemedesigner.com/#1431Tl5mRp9k.
+#####  Color Space: RGB;
+
+
+*** Primary Color:
+
+   var. 1 = #B6943E = rgb(182,148,62)
+   var. 2 = #927C45 = rgb(146,124,69)
+   var. 3 = #84661B = rgb(132,102,27)
+   var. 4 = #CEAD5C = rgb(206,173,92)
+   var. 5 = #CEB26D = rgb(206,178,109)
+
+*** Secondary Color A:
+
+   var. 1 = #4C337C = rgb(76,51,124)
+   var. 2 = #453464 = rgb(69,52,100)
+   var. 3 = #2D165A = rgb(45,22,90)
+   var. 4 = #7053A6 = rgb(112,83,166)
+   var. 5 = #7860A6 = rgb(120,96,166)
+
+*** Secondary Color B:
+
+   var. 1 = #2A5E72 = rgb(42,94,114)
+   var. 2 = #2D4F5C = rgb(45,79,92)
+   var. 3 = #134153 = rgb(19,65,83)
+   var. 4 = #4B88A0 = rgb(75,136,160)
+   var. 5 = #588CA0 = rgb(88,140,160)
+
+*/
