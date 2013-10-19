@@ -31,8 +31,7 @@ $myMpd = new mpd($mpdhost, $mpdport);
         echo "Error Connecting: " . $myMpd->errStr;
     } else {
         ?>
-        <B>Connected to MPD Version <? echo $myMpd->mpd_version ?> at <? echo $myMpd->host ?>
-            :<? echo $myMpd->port ?></B>
+        <B><? echo $myMpd->host ?></B>
     <?php } ?>
 </div>
 
@@ -63,8 +62,6 @@ $myMpd = new mpd($mpdhost, $mpdport);
         </div>
     </div>
     <div class="col-md-3">
-
-
         <span id="albumCover"></span>
     </div>
     <div class="col-md-2">

@@ -1,0 +1,15 @@
+
+nginx with php
+
+https://www.youtube.com/watch?v=5eB-MtdFXlI
+
+
+install git - sudo apt-get install git
+
+
+cd into /var/www/
+git clone https://github.com/danbuntu/MPD_frontend_for_Raspberry_PI.git
+sudo nano /etc/nginx/sites-available/default
+edit the root to be:  root /var/www/MPD_frontend_for_Raspberry_PI;
+
+

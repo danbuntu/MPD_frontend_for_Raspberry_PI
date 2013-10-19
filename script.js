@@ -63,7 +63,7 @@ $(document).ready(function () {
 
                 // check the cover image and only update if it new to stop onscreen flashing
                 if (cover != 'imageprocessor.php?name=' + json.cover) {
-                    $('#albumCover').html('<img class="cover" src="imageprocessor.php?name=' + json.cover + '" width="150px">');
+                    $('#albumCover').html('<img class="cover" src="imageprocessor.php?name=' + json.cover + '" width="50px">');
                 }
 
                 if (json.state == 'stop') {
