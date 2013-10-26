@@ -38,17 +38,17 @@ $(document).ready(function () {
     function doPoll() {
         // get the current coverimage
         var cover = $('.cover').attr('src');
-        console.log('cover: ' + cover);
+//        console.log('cover: ' + cover);
 
-        console.log('poll');
+//        console.log('poll');
         $.ajax({
             type: "POST",
             url: 'ajax.php',
             data: {type: 'poll'},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 var json = $.parseJSON(data)
-                console.log(json);
+//                console.log(json);
                 // set the various options
 
                 $('#artist').html(json.artist);
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
                 // check the cover image and only update if it new to stop onscreen flashing
                 if (cover != 'imageprocessor.php?name=' + json.cover) {
-                    $('#albumCover').html('<img class="cover" src="imageprocessor.php?name=' + json.cover + '" width="50px">');
+                    $('#albumCover').html('<img class="cover" src="imageprocessor.php?name=' + json.cover + '" width="100px">');
                 }
 
                 if (json.state == 'stop') {

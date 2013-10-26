@@ -7,6 +7,11 @@ https://www.youtube.com/watch?v=5eB-MtdFXlI
 install git - sudo apt-get install git
 
 
+update the pi firmware with rpi-update
+
+sort distorted audio
+ (not with USB high speed; add dwc_otg.speed=1 to /boot/cmdline.txt, but that will slow down all USB transfers)
+
 cd into /var/www/
 git clone https://github.com/danbuntu/MPD_frontend_for_Raspberry_PI.git
 sudo nano /etc/nginx/sites-available/default

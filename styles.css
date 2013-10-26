@@ -1,24 +1,28 @@
 body {
-    font-size: 10px;
+    font-size: 11px;
 }
 
 .btn {
-    font-size: 8px;
+    font-size: 12px;
 }
 
 .player {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .playlist {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .connected {
     text-align: right;
-    margin-right: 5px;
+    margin-right: 0px;
+}
+
+.volAlter {
+    font-size: 12px;
 }
 
 #voMuteHolding {
@@ -26,8 +30,12 @@ body {
 }
 
 .controlsDiv {
-    font-size: 120%;
+    font-size: 150%;
     text-align: center;
+}
+
+.btn-lg {
+    padding: 5px;
 }
 
 .state {
@@ -89,7 +97,16 @@ body {
 
 .well {
     background-color: lightgray;
+    padding: 2px;
 }
+
+
+.nopadd {
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+
 
 /*colours
 
@@ -123,3 +140,5 @@ body {
    var. 5 = #588CA0 = rgb(88,140,160)
 
 */
+
+

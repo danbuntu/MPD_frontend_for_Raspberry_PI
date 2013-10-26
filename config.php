@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-$mpdhost = '192.168.2.13';
+$mpdhost = '192.168.2.32';
 $mpdport = '6600';
 
 //

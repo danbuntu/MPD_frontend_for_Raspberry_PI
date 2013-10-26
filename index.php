@@ -37,7 +37,8 @@ $myMpd = new mpd($mpdhost, $mpdport);
 </div>
 
 <div id="player" class="row player well">
-    <div class="col-md-7">
+
+    <div class="col-xs-8 nopadd">
 
 
         <b>Current Track:</b> <span id="artist"></span> - <span id="title"></span><br>
@@ -50,25 +51,29 @@ $myMpd = new mpd($mpdhost, $mpdport);
             id="listPercentage"></span>%)
         <br>
 
-        <div class="controlsDiv">
-            <div class="btn-group">
-                <button data-control="previous"
-                        class='controls btn btn-default glyphicon glyphicon-step-backward'></button>
-                <button data-control="stop" class='controls btn btn-default glyphicon glyphicon-stop'></button>
-                <button data-control="pause" class='controls btn btn-default glyphicon glyphicon-pause'></button>
-                <button data-control="play" class='controls btn btn-default glyphicon glyphicon-play'></button>
-                <button data-control="next" class='controls btn btn-default glyphicon glyphicon-step-forward'></button>
-            </div>
-            <div class="state"></div>
+
         </div>
-    </div>
-    <div class="col-md-3">
+    <div class="col-xs-4 nopadd">
         <span id="albumCover"></span>
     </div>
-    <div class="col-md-2">
+
+
+    <div class="controlsDiv">
+        <div class="btn-group">
+            <button data-control="previous"
+                    class='controls btn btn-default glyphicon glyphicon-step-backward'></button>
+            <button data-control="stop" class='controls btn btn-default glyphicon glyphicon-stop'></button>
+            <button data-control="pause" class='controls btn btn-default glyphicon glyphicon-pause'></button>
+            <button data-control="play" class='controls btn btn-default glyphicon glyphicon-play'></button>
+            <button data-control="next" class='controls btn btn-default glyphicon glyphicon-step-forward'></button>
+        </div>
+        <div class="state"></div>
+    </div>
+
+
         <b>Volume: <span id="volume"><?php echo $myMpd->volume; ?></span></b><br>
 
-        <div class="btn-group-vertical">
+        <div class="btn-group">
 
             <a id="volUp" class="btn btn-success btn-lg volAlter volUp" data-alter="up"><span
                     class='glyphicon glyphicon-volume-up'></span</a>
@@ -82,7 +87,11 @@ $myMpd = new mpd($mpdhost, $mpdport);
         </div>
         <span id="voMuteHolding"></span>
 
+
     </div>
+
+
+
     <button id="playlist" class="btn">Playlist <span class="glyphicon glyphicon-circle-arrow-down"></span></button>
     <button id="search" class="btn">Search <span class="glyphicon glyphicon-circle-arrow-down"></span></button>
     <button id="options" class="btn">Options <span class="glyphicon glyphicon-circle-arrow-down"></span></button>
