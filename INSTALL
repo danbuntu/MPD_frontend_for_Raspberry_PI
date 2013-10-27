@@ -18,3 +18,7 @@ sudo nano /etc/nginx/sites-available/default
 edit the root to be:  root /var/www/MPD_frontend_for_Raspberry_PI;
 
 
+setup mpd
+
+http://lesbonscomptes.com/pages/raspmpd.html
+
