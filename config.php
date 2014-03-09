@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-$mpdhost = '192.168.2.32';
+$mpdhost = '192.168.2.19';
 $mpdport = '6600';
 
 //
@@ -16,9 +16,8 @@ $mpdport = '6600';
 //    'pibox' => array('hostip' => '192.168.2.32', 'port' => '6600'),
 //);
 
-
 // location of music directory on the server - with trailing slash
 $musicDir = '/media/music/';
 
 // name of the cover image - must be a jpg
-$coverImage = 'cover.jpg';
+$coverImage = 'folder.jpg';

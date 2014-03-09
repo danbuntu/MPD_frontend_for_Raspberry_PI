@@ -55,6 +55,7 @@ if ($_POST['type'] == 'poll') {
     $length = $myMpd->current_track_length;
     $positionPercentage = (round(($position / $length), 2) * 100);
     $state = $myMpd->state;
+    $volume = $myMpd->volume;
 
     $playTrackPosition = $myMpd->current_track_id + 1;
     $playTrackCount = $myMpd->playlist_count;
@@ -65,7 +66,7 @@ if ($_POST['type'] == 'poll') {
     $filePath = implode("/", $filePath);
     $cover = $filePath . '/' . $coverImage;
 
-    $details = array('state' => $state, 'artist' => $artist, 'title' => $title, 'album' => $album, 'position' => $position, 'length' => $length, 'positionPercentage' => $positionPercentage, "cover" => urlencode($cover), 'listPosition' => $playTrackPosition, 'listCount' => $playTrackCount, 'listTrack' => $playTrackPercentage);
+    $details = array('volume' => $volume, 'state' => $state, 'artist' => $artist, 'title' => $title, 'album' => $album, 'position' => $position, 'length' => $length, 'positionPercentage' => $positionPercentage, "cover" => urlencode($cover), 'listPosition' => $playTrackPosition, 'listCount' => $playTrackCount, 'listTrack' => $playTrackPercentage);
 
     $details = json_encode($details);
     echo $details;
@@ -86,6 +87,17 @@ if ($_POST['type'] == 'control') {
         $myMpd->Previous();
     } elseif ($type == 'next') {
         $myMpd->Next();
+    } elseif ($type == 'cover') {
+        // get current play state
+        $state = $myMpd->state;
+        echo 'state is; ' ,  $state;
+//        MPD_STATE_PLAYING, MPD_STATE_STOPPED, MPD_STATE_PAUSED
+        if ($state == 'play') {
+            $myMpd->Pause();
+        } elseif (($state == 'stop') || ($state == 'pause')) {
+            $myMpd->Play();
+        }
+
     }
 
 }
@@ -183,10 +195,10 @@ if ($_POST['type'] == 'search') {
         $artist = '';
         $html = '';
         foreach ($results as $result) {
-            if($artist != $result['Artist']) {
-                $html .= '<button class=" btn btn-default searchButtonArtist">' .$result['Artist'] . '</button> ';
+            if ($artist != $result['Artist']) {
+                $html .= '<button class=" btn btn-default searchButtonArtist">' . $result['Artist'] . '</button> ';
 //            $resultsArray[] = array('result' => $result['Artist']);
-            $artist = $result['Artist'];
+                $artist = $result['Artist'];
             }
         }
         echo $html;
@@ -229,8 +241,8 @@ if ($_POST['type'] == 'search') {
                 $files[] = $result['file'];
             }
         }
-    $resultsArray = json_encode($resultsArray);
-    echo $resultsArray;
+        $resultsArray = json_encode($resultsArray);
+        echo $resultsArray;
     }
     if ($_POST['track'] == 'true') {
         $results = $myMpd->Search(MPD_SEARCH_TITLE, $text);
@@ -254,10 +266,10 @@ if ($_POST['type'] == 'bulksearchArtists') {
     $html = '';
 
     for ($i = 65; $i <= 90; $i++) {
-        $html .= '<br><h4><a class="btn btn-primary btn-letter" id="' . chr($i) .'">' . chr($i) . ' </a><a class="btn btn-primary" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
+        $html .= '<br><h4><a class="btn btn-primary btn-letter" id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn btn-primary pull-right" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
         foreach ($resultsArray as $result) {
             if ($result[0] == chr($i)) {
-                $html .= '<button class=" btn btn-default searchButtonArtist">' .$result . '</button> ';
+                $html .= '<button class=" btn btn-default searchButtonArtist">' . $result . '</button> ';
             }
         }
     }
@@ -276,10 +288,15 @@ if ($_POST['type'] == 'bulksearchAlbums') {
     $html = '';
 
     for ($i = 65; $i <= 90; $i++) {
-        $html .= '<br><h4><a class="btn btn-primary btn-letter" "id="' . chr($i) .'">' . chr($i) . ' </a><a class="btn btn-primary" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
+        $html .= '<br><h4><a class="btn btn-primary btn-letter" "id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn btn-primary pull-right" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
         foreach ($resultsArray as $result) {
             if ($result[0] == chr($i)) {
-                $html .= '<button class=" btn btn-default searchButtonAlbum">' .$result . '</button> ';
+
+//                // get the dirrectory for the album
+//                $dir = $mpdObject->GetDir($result);
+
+
+                $html .= '<button class=" btn btn-default searchButtonAlbum">' . $dir . $result . '</button> ';
             }
         }
     }
@@ -340,12 +357,10 @@ if ($_POST['type'] == 'listcontrol') {
         $myMpd->DBRefresh();
         $message = 'Database Refreshing';
     } elseif ($_POST['controlType'] == 'info') {
-       $info = $myMpd->RefreshInfo();
+        $info = $myMpd->RefreshInfo();
         $message = $info;
     }
 
-echo $message;
+    echo $message;
 
 }
-
-?>
