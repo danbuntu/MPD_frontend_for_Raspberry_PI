@@ -106,8 +106,24 @@ if ($_POST['type'] == 'control') {
 if ($_POST['type'] == 'playlistget') {
 //    $count = $myMpd->playlist_count;
 
-    $list = $myMpd->playlist;
-    $list = json_encode($list);
+
+    $lists = $myMpd->playlist;
+//    print_R($list);
+
+    // get the currenlty playing track id
+    $currentTrack = $myMpd->current_track_id;
+//    echo 'current track' , $currentTrack;
+    $finalList = array();
+    foreach ($lists as $list) {
+        if ($list['Pos'] == $currentTrack) {$active = 'playingItem';} else {$active = '';};
+
+
+        $finalList[] = array('Pos' => $list['Pos'],'Artist' => $list['Artist'], 'Album' => $list['Album'], 'Title' => $list['Title'], 'Active' => $active);
+    }
+
+//    print_r($finalList);
+
+    $list = json_encode($finalList);
     echo $list;
 }
 
@@ -119,6 +135,17 @@ if ($_POST['type'] == 'removeItem') {
     $myMpd->PLRemove($_POST['id']);
 
 }
+
+
+if ($_POST['type'] == 'addRadio') {
+//    $count = $myMpd->playlist_count;
+
+//    print_R($_POST);
+    $myMpd->PLLoad($_POST['id']);
+
+
+}
+
 
 if ($_POST['type'] == 'addItem') {
 //    $count = $myMpd->playlist_count;
@@ -133,6 +160,16 @@ if ($_POST['type'] == 'addItem') {
         $items = explode(",", $_POST['id']);
         $myMpd->PLAddBulk($items);
     }
+
+}
+
+
+if ($_POST['type'] == 'addRadio') {
+//    $count = $myMpd->playlist_count;
+
+//    print_R($_POST);
+
+        $myMpd->PLLoad($_POST['id']);
 
 }
 
@@ -266,7 +303,7 @@ if ($_POST['type'] == 'bulksearchArtists') {
     $html = '';
 
     for ($i = 65; $i <= 90; $i++) {
-        $html .= '<br><h4><a class="btn btn-primary btn-letter" id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn btn-primary pull-right" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
+        $html .= '<br><h4><a class="btn btn-letter lightGreen" id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn pull-right lightGreen" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
         foreach ($resultsArray as $result) {
             if ($result[0] == chr($i)) {
                 $html .= '<button class=" btn btn-default searchButtonArtist">' . $result . '</button> ';
@@ -288,7 +325,7 @@ if ($_POST['type'] == 'bulksearchAlbums') {
     $html = '';
 
     for ($i = 65; $i <= 90; $i++) {
-        $html .= '<br><h4><a class="btn btn-primary btn-letter" "id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn btn-primary pull-right" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
+        $html .= '<br><h4><a class="btn  btn-letter lightGreen" "id="' . chr($i) . '">' . chr($i) . ' </a><a class="btn lightGreen pull-right" href="#top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Back to top</a></h4>';
         foreach ($resultsArray as $result) {
             if ($result[0] == chr($i)) {
 

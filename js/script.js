@@ -6,8 +6,7 @@ $(document).ready(function () {
     doPoll();
     function connectToServer() {
         var selectedOp = $('#hostlist option:selected').val();
-        console.log('selected item' + selectedOp);
-
+//        console.log('selected item' + selectedOp);
     }
 
 
@@ -17,7 +16,6 @@ $(document).ready(function () {
             url: 'ajax.php',
             data: {type: 'getServers'},
             success: function (data) {
-
 //                console.log(data);
                 var hostsarray = $.parseJSON(data);
 //                console.log(hostsarray);
@@ -81,7 +79,7 @@ $(document).ready(function () {
 
 
     $('.controls').click(function (value) {
-        console.log('vol up clicked' + value);
+//        console.log('vol up clicked' + value);
         var controlType = $(this).attr('data-control');
 
         $.ajax({
@@ -89,7 +87,7 @@ $(document).ready(function () {
             url: 'ajax.php',
             data: {type: 'control', controlType: controlType},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 // get the current volume
             }
         });
@@ -97,7 +95,7 @@ $(document).ready(function () {
 
 
     $('.listcontrol').click(function (value) {
-        console.log('listcontrol clicked');
+//        console.log('listcontrol clicked');
         var controlType = $(this).attr('data-name');
 
         $.ajax({
@@ -117,32 +115,9 @@ $(document).ready(function () {
     });
 
 
-//    $('#serverListItems').on('click', '.serverButton', function () {
-//        console.log('server button clicked');
-//        var ip = $(this).attr('data-hostip');
-//        var port = $(this).attr('data-port');
-//
-//        $.ajax({
-//            type: "POST",
-//            url: 'index2.php',
-//            data: {type: 'connectServer', ip: ip, port: port},
-//            success: function (data) {
-////            console.log(data);
-////                var connection = $.parseJSON(data)
-////
-////                $.each(connection, function (key, value) {
-////                var server = value.host;
-////                var port = value.port;
-////
-////                });
-//            }
-//            });
-//    });
-
-
     $('.volAlter').click(function (value) {
 
-        console.log('vol up clicked' + value);
+//        console.log('vol up clicked' + value);
 // get the current volume
 
         var voltype = $(this).attr('data-alter');
@@ -152,7 +127,7 @@ $(document).ready(function () {
         } else if (voltype == 'down') {
             vol = parseInt(vol) - 1;
         } else if (voltype == 'mute') {
-console.log(vol);
+//console.log(vol);
             if (vol != 0) {
                 // mute the volume
                 // get the current volume and pop ininto a holding div
@@ -176,7 +151,7 @@ console.log(vol);
             url: 'ajax.php',
             data: {type: 'volume', vol: vol},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 $('#volume').html(vol);
 
                 if (vol == 100) {
@@ -210,6 +185,15 @@ console.log(vol);
     });
 
 
+    $('#radio').click(function (value) {
+//        console.log('playlist pressed');
+        loadRadio();
+        $('#radioWell').slideDown("slow");
+        $('#player').slideUp("slow");
+
+    });
+
+
     $('#options').click(function (value) {
 //        console.log('playlist pressed');
         loadtheplaylist();
@@ -231,6 +215,12 @@ console.log(vol);
         $('#player').slideDown("slow");
     });
 
+    $('#radioplayer').click(function (value) {
+//        console.log('playlist pressed');
+        $('#radioWell').slideUp("slow");
+        $('#player').slideDown("slow");
+    });
+
     $('#search').click(function (value) {
 //        console.log('search pressed');
         loadtheplaylist();
@@ -247,7 +237,7 @@ console.log(vol);
 //    });
 
     $('#searchlistplayer').click(function (value) {
-        console.log('search pressed');
+//        console.log('search pressed');
         $('#searchWell').slideUp("slow");
         $('#player').slideDown("slow");
     });
@@ -265,18 +255,19 @@ console.log(vol);
             url: 'ajax.php',
             data: {type: 'playlistget'},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 var list = $.parseJSON(data)
 
                 var count = list.length;
                 $('#playlistcount').html(count);
 
-                var items = '<ol>';
+                var items = '<ul class="playlistlist">';
 
                 $.each(list, function (key, value) {
-                    items += '<li class=" playListItem" data-id="' + value.Pos + '">' + value.Artist + ' - ' + value.Album + ' - ' + value.Title + '</li>';
+//                    console.log(key + ' ' + value);
+                    items += '<li class=" playListItem ' + value.Active + '" data-id="' + value.Pos + '">' + key + ' - ' + value.Artist + ' - ' + value.Album + ' - ' + value.Title + '</li>';
                 });
-                items += '</ol>';
+                items += '</ul>';
 
                 $('#playListItems').html(items);
             }
@@ -285,17 +276,31 @@ console.log(vol);
 
 
     $('#playListItems').on('click', '.playListItem', function () {
-        console.log('playlistitem pressed');
+//        console.log('playlistitem pressed');
         $.ajax({
             type: "POST",
             url: 'ajax.php',
             data: {type: 'removeItem', id: $(this).attr('data-id')},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 loadtheplaylist()
             }
         });
     });
+
+    $('#radioText').on('click', '.playListItem', function () {
+//        console.log('radio pressed' + $(this).attr('data-id'));
+        $.ajax({
+            type: "POST",
+            url: 'ajax.php',
+            data: {type: 'addRadio', id: $(this).attr('data-id'), name: $(this).attr('data-name')},
+            success: function (data) {
+//                console.log(data);
+                loadtheplaylist()
+            }
+        });
+    });
+
 
     $('#searchListItems').on('click', '.searchListItem', function () {
 //        console.log('playlistitem pressed');
@@ -375,7 +380,7 @@ console.log(vol);
 
 // search box
     $('#searchText').on('change', function () {
-        console.log('change' + $(this).val());
+//        console.log('change' + $(this).val());
 
         var search = $(this).val()
         if (search.length > 3) {
@@ -385,21 +390,21 @@ console.log(vol);
             var album = $('#albumsearch').hasClass('active');
             var track = $('#tracksearch').hasClass('active');
 
-            console.log(artist + ' ' + album + ' ' + track);
+//            console.log(artist + ' ' + album + ' ' + track);
 
             $.ajax({
                 type: "POST",
                 url: 'ajax.php',
                 data: {type: 'search', search: search, artist: artist, album: album, track: track},
                 success: function (data) {
-                    console.log(data);
+//                    console.log(data);
                     // get the current volume
                     var list = $.parseJSON(data)
                     var items = '<ol>';
 
                     $.each(list, function (key, value) {
                         items += '<li class=" searchListItem" data-name="' + value.filename + '"';
-                        console.log(value.multiple);
+//                        console.log(value.multiple);
                         if (value.multiple == 'yes') {
                             items += ' data-type="bulk"><button class=" btn btn-default">' + value.result + '</button></li>';
                         } else {
@@ -420,12 +425,15 @@ console.log(vol);
         $('#advancedsearchWell').hide();
         $('#alphabetAnchors').show();
         $('#searchListItems').show();
+
+        $('#searchListItems').html('<div class="text-center spiner"><img src="ajax-loader.gif"><br> loading...</div>');
+
         $.ajax({
             type: "POST",
             url: 'ajax.php',
             data: {type: 'bulksearchArtists'},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
 //                var list = $.parseJSON(data);
 //                var items = '<ol>';
 //                $.each(list, function (key, value) {
@@ -443,19 +451,14 @@ console.log(vol);
         $('#advancedsearchWell').hide();
         $('#alphabetAnchors').show();
         $('#searchListItems').show();
+        $('#searchListItems').html('<div class="text-center spiner"><img src="ajax-loader.gif"><br> loading...</div>');
+
         $.ajax({
             type: "POST",
             url: 'ajax.php',
             data: {type: 'bulksearchAlbums'},
             success: function (data) {
-                console.log(data);
-//                var list = $.parseJSON(data);
-//                var items = '<ol>';
-//                $.each(list, function (key, value) {
-//                    items += '<button class=" btn btn-default searchButtonAlbum">' + value + '</button></li>';
-//                });
-//                items += '</ol>';
-
+//                console.log(data);
                 $('#searchListItems').html(data);
             }
         });
@@ -477,7 +480,7 @@ console.log(vol);
             url: 'ajax.php',
             data: {type: 'bulksearchAlbumsByArtist', artist: artist},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 var list = $.parseJSON(data);
                 var items = '<ol>';
                 $.each(list, function (key, value) {
@@ -497,7 +500,7 @@ console.log(vol);
             url: 'ajax.php',
             data: {type: 'bulksearchAlbumsByArtist', artist: artist},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 var list = $.parseJSON(data);
                 var items = '<ol>';
                 $.each(list, function (key, value) {
@@ -534,9 +537,9 @@ console.log(vol);
             url: 'ajax.php',
             data: {type: 'getAndAddAllAlbumTracks', album: album},
             success: function (data) {
-                console.log(data);
+//                console.log(data);
                 $('#advancedsearchListItemsAdded').show();
-                $('#advancedsearchListItemsAdded').html('Album added');
+                $('#advancedsearchListItemsAdded').html('Item added');
                 $('#advancedsearchListItemsAdded').fadeOut(5000);
             }
         });
@@ -548,10 +551,10 @@ console.log(vol);
         var letter = $(this).text();
 
         var fullSearchText = $('#searchText').text() + letter;
-        console.log(letter);
+//        console.log(letter);
         $('#searchText').html(fullSearchText);
 
-        console.log('search test', fullSearchText);
+//        console.log('search test', fullSearchText);
 
 //        console.log('change' + $(this).text());
 
@@ -563,14 +566,15 @@ console.log(vol);
             var album = $('#albumsearch').hasClass('active');
             var track = $('#tracksearch').hasClass('active');
 
-            console.log(artist + ' ' + album + ' ' + track);
+//            console.log(artist + ' ' + album + ' ' + track);
 
+            $('#advancedSearchListItems').html('<div class="text-center spiner"><img src="ajax-loader.gif"><br> loading...</div>');
             $.ajax({
                 type: "POST",
                 url: 'ajax.php',
                 data: {type: 'search', search: fullSearchText, artist: artist, album: album, track: track},
                 success: function (data) {
-                    console.log(data);
+//                    console.log(data);
 
                     if (artist == true) {
                         $('#advancedSearchListItems').html(data);
@@ -581,7 +585,7 @@ console.log(vol);
 
                         $.each(list, function (key, value) {
 //                        items += '<li class=" searchListItem" data-name="' + value.filename + '"';
-                            console.log(value.multiple);
+//                            console.log(value.multiple);
                             if (value.multiple == 'yes') {
                                 items += '<li class="searchListItem" data-name="' + value.filename + '" data-type="bulk"><button class=" btn btn-default">' + value.result + '</button></li>';
                             } else {
@@ -617,10 +621,59 @@ console.log(vol);
 
 
     $('#clearsearch').click(function (value) {
-        console.log('Clear the search');
+//        console.log('Clear the search');
         $('#searchText').html('');
         $('#advancedSearchListItems').html('');
         $('#advancedsearchListItemsAdded').html('');
+    });
+
+//    function loadRadio() {
+//        $.ajax({
+//            url : "radio.txt",
+//            dataType: "text",
+//            success : function (data) {
+//                $(".radioText").html(data);
+//                <li class=" radioItem" data-id="' + value.Pos + '">' + value.Artist + ' - ' + value.Album + ' - ' + value.Title + '</li>
+//
+//            }
+//        });
+//    }
+
+    function loadRadio() {
+
+        $('#radioText').html('');
+        var items = '<ul class="playlistlist">';
+        // use the now function to break the text file caching
+        jQuery.get('radio.txt', {
+            now: jQuery.now()
+        }, function (data) {
+            var lines = data.split("\n");
+            //process text file line by line
+
+            $.each(lines, function (n, urlRecord) {
+//console.log(urlRecord);
+                var values = urlRecord.split('~');
+//            alert(values[1]);
+                items += '<li class="playListItem" data-id="' + values[1] + '" data-name="' + values[0] + '">' + values[0] + '</li>';
+
+            });
+            items += '</ul>';
+            $('#radioText').html(items);
+        });
+
+    }
+
+    $('#radioText').on('click', '.radioItem', function () {
+//        console.log('radioItem pressed');
+        $.ajax({
+            type: "POST",
+            url: 'ajax.php',
+            data: {type: 'addRadio', id: $(this).attr('data-id'), name: $(this).attr('data-name')},
+            success: function (data) {
+//                console.log(data);
+                loadtheplaylist()
+            }
+        });
     });
 
 
